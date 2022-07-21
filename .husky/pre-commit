@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# https://github.com/typicode/husky/issues/1134
+# https://github.com/okonet/lint-staged/issues/693#issuecomment-1079759224
+
+npm run lint
+npm run prepare
