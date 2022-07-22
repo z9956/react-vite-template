@@ -3,5 +3,6 @@
 
 # https://github.com/typicode/husky/issues/1134
 # https://github.com/okonet/lint-staged/issues/693#issuecomment-1079759224
+#FORCE_COLOR=1 yarn lint-staged --allow-empty
 
-FORCE_COLOR=1 yarn lint-staged --allow-empty
+yarn lint-staged
