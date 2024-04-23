@@ -1,17 +1,15 @@
-import request from '../utils/request.js';
-
-export const fakeAuthProvider = {
+const fakeAuthProvider = {
 	isAuthenticated: false,
-	username: null,
-	async signin(username) {
-		await request('/auth/oauth/token');
-
+	user: null,
+	signin(params, callback) {
+		fakeAuthProvider.user = params;
 		fakeAuthProvider.isAuthenticated = true;
-		fakeAuthProvider.username = username;
+		setTimeout(callback, 100); // fake async
 	},
-	async signout() {
-		await new Promise((r) => setTimeout(r, 500)); // fake delay
+	signout(callback) {
 		fakeAuthProvider.isAuthenticated = false;
-		fakeAuthProvider.username = '';
+		setTimeout(callback, 100);
 	},
 };
+
+export { fakeAuthProvider };
