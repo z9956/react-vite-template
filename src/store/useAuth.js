@@ -1,13 +1,25 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+import { changeLanguage } from 'i18next';
+// import i18n from '../i18n/index.js';
+
 import { login } from '../api/login.js';
 
 export const useAuthStore = create(
 	persist(
 		(set) => ({
 			user: null,
+			language: 'zhCN',
 			isAuthenticated: false,
 
+			changeLanguage: async (nextLang) => {
+				if (nextLang) {
+					set({ language: nextLang });
+					await changeLanguage(nextLang);
+					localStorage.setItem('language', nextLang);
+					window.location.reload();
+				}
+			},
 			signIn: async (params, cb) => {
 				try {
 					// const res = await login(params);
@@ -21,7 +33,7 @@ export const useAuthStore = create(
 						cb && cb();
 					}
 
-					console.error('res', res);
+					// console.error('res', res);
 				} catch (e) {
 					console.error('userAuth.js signIn, e', e);
 				}

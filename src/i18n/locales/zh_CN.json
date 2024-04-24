@@ -1,0 +1,30 @@
+{
+  "cancel": "取消",
+  "save": "保存",
+  "modal": {
+    "add": "新增",
+    "edit": "编辑"
+  },
+  "nav": {
+    "basicData": "基础数据",
+    "buMaintenance": "BU维护",
+    "confirmRights": "确权",
+    "bUProfit": "BU利润",
+    "transactions": "往来事项",
+    "advance": "预支",
+    "reduce": "调减",
+    "financing": "融资",
+    "allocate": "分配",
+    "dividendCalculation": "分红计算",
+    "plate": "板块",
+    "persons": "个人"
+  },
+  "table": {
+    "total" : "共",
+    "records" : "条记录"
+  },
+  "buMaintenance": {
+    "startTime": "开始时间",
+    "endTime": "结束时间"
+  }
+}

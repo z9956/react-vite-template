@@ -1,9 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Card, Table, Space } from 'antd';
+import {
+	Card,
+	Table,
+	Form,
+	Space,
+	Row,
+	Col,
+	Input,
+	DatePicker,
+	Select,
+	Button,
+} from 'antd';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FiEdit } from 'react-icons/fi';
 import dayjs from 'dayjs';
 
+// import {} form '../../api/basicData.js';
 import { DEFAULT_PAGINATION } from '../../utils/constant.js';
 import i18n from '../../i18n/index.js';
 import CreateModal from './CreateModal';
@@ -15,6 +27,8 @@ const SettlementAuthority = () => {
 	const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [showLoading, setShowLoading] = useState(true);
+
+	const [form] = Form.useForm();
 
 	const handleOpenCreate = () => {
 		setShowAddModal(true);
@@ -40,48 +54,10 @@ const SettlementAuthority = () => {
 			align: 'center',
 		},
 		{
-			title: i18n.t('buMaintenance.startTime'),
-			dataIndex: 'createdTime',
-			width: 180,
-			align: 'center',
-			render: (record) => (
-				<span>
-					{record ? dayjs(record).format('YYYY-MM-DD HH:mm:ss') : null}
-				</span>
-			),
-		},
-		{
-			title: i18n.t('buMaintenance.endTime'),
-			dataIndex: 'endTime',
-			width: 180,
-			align: 'center',
-			render: (record) => (
-				<span>
-					{record ? dayjs(record).format('YYYY-MM-DD HH:mm:ss') : null}
-				</span>
-			),
-		},
-		{
-			title: '占股比例',
+			title: '合计',
 			dataIndex: 'userName',
 			width: 100,
 			align: 'center',
-		},
-		{
-			title: (
-				<IoIosAddCircleOutline
-					className={styles.create}
-					onClick={handleOpenCreate}
-				/>
-			),
-			key: 'action',
-			width: 50,
-			align: 'center',
-			render: () => (
-				<Space size="middle">
-					<FiEdit />
-				</Space>
-			),
 		},
 	];
 
@@ -96,7 +72,7 @@ const SettlementAuthority = () => {
 		getData(nextParams);
 	};
 
-	const getData = async () => {
+	const getData = async (nextPagination) => {
 		if (!showLoading) setShowLoading(true);
 		if (selectedRowKeys.length) setSelectedRowKeys([]);
 
@@ -123,21 +99,45 @@ const SettlementAuthority = () => {
 		setShowLoading(false);
 	};
 
+	const handleSelectRows = (nextSelectedRowKeys, nextSelectedRows) => {
+		setSelectedRowKeys(nextSelectedRowKeys);
+	};
+
+	const handleReset = () => {
+		form.resetFields();
+		setPagination((prevState) => {
+			prevState.page = 0;
+			return { ...prevState };
+		});
+
+		getData();
+	};
+
+	const handleSearch = () => {
+		form.validateFields().then((values) => {
+			setPagination((prevState) => {
+				prevState.page = 0;
+				return { ...prevState };
+			});
+			getData();
+		});
+	};
+
 	const handleCreate = async (params) => {
 		if (params.officeCode) {
 			params.ids = params.officeCode;
 		}
 
-		// try {
-		// 	const result = await createUserAccounts(params);
-		//
-		// 	if (result) {
-		// 		setShowAddModal(false);
-		// 		getData(pagination);
-		// 	}
-		// } catch (e) {
-		// 	console.error('closeAccount handleCreate', e);
-		// }
+		try {
+			const result = await createUserAccounts(params);
+
+			if (result) {
+				setShowAddModal(false);
+				getData(pagination);
+			}
+		} catch (e) {
+			console.error('closeAccount handleCreate', e);
+		}
 	};
 
 	useEffect(() => {
@@ -146,6 +146,36 @@ const SettlementAuthority = () => {
 
 	return (
 		<div>
+			<Card>
+				<Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} form={form}>
+					<Row>
+						<Col span={4}>
+							<Form.Item label={'日期'} name={'userName'}>
+								<DatePicker style={{ width: '100%' }} />
+							</Form.Item>
+						</Col>
+						<Col span={4}>
+							<Form.Item label={''} name={'userName'}>
+								<DatePicker style={{ width: '100%' }} />
+							</Form.Item>
+						</Col>
+						<Col span={4}>
+							<Form.Item label={'板块'} name={'userName'}>
+								<Select allowClear />
+							</Form.Item>
+						</Col>
+						<Col span={4}>
+							<Form.Item label={'BU'} name={'userName'}>
+								<Select allowClear />
+							</Form.Item>
+						</Col>
+						<Col span={4}>
+							<Button>导入</Button>
+							<Button>导出</Button>
+						</Col>
+					</Row>
+				</Form>
+			</Card>
 			<Card className={styles.wrap}>
 				<Table
 					rowKey={'id'}

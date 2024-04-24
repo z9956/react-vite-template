@@ -1,55 +1,161 @@
 import { Layout, Menu } from 'antd';
+import { Link } from 'react-router-dom';
+import { MdLanguage } from 'react-icons/md';
 
+import useAuthStore from '../../store/useAuth.js';
+import i18n from '../../i18n/index.js';
 import styles from './style.module.less';
-import { useNavigate } from 'react-router-dom';
 
 const { Header } = Layout;
 
 const items = [
 	{
-		label: '基础数据',
+		label: i18n.t('nav.basicData'),
 		key: '1',
 		popupClassName: styles.popup,
 		route: '/basicData',
 		children: [
-			{ label: 'BU维护', key: '1-1', route: '/basicData/buMaintenance' },
-			{ label: '确权', key: '1-2', route: '/basicData/confirmRights' },
+			{
+				// label: '',
+				key: '1-1',
+				route: '/basicData/buMaintenance',
+				icon: (
+					<>
+						<Link to={'/basicData/buMaintenance'}>
+							{i18n.t('nav.buMaintenance')}
+						</Link>
+					</>
+				),
+			},
+			{
+				// label: i18n.t('nav.confirmRights'),
+				key: '1-2',
+				route: '/basicData/confirmRights',
+				icon: (
+					<>
+						<Link to={'/basicData/confirmRights'}>
+							{i18n.t('nav.confirmRights')}
+						</Link>
+					</>
+				),
+			},
 		],
 	},
 	{
-		label: 'BU利润',
 		key: '2',
+		icon: (
+			<>
+				<Link to={'/buProfit'}>{i18n.t('nav.bUProfit')}</Link>
+			</>
+		),
 	},
 	{
-		label: '往来事项',
+		label: i18n.t('nav.transactions'),
 		key: '3',
 		popupClassName: styles.popup,
 		children: [
-			{ label: '预支', key: '3-1' },
-			{ label: '调减', key: '3-2' },
-			{ label: '融资', key: '3-3' },
-			{ label: '分配', key: '3-4' },
+			{
+				key: '3-1',
+				icon: (
+					<>
+						<Link to={'/advance'}>{i18n.t('nav.advance')}</Link>
+					</>
+				),
+			},
+			{
+				key: '3-2',
+				icon: (
+					<>
+						<Link to={'/reduce'}>{i18n.t('nav.reduce')}</Link>
+					</>
+				),
+			},
+			{
+				key: '3-3',
+				icon: (
+					<>
+						<Link to={'/financing'}>{i18n.t('nav.financing')}</Link>
+					</>
+				),
+			},
+			{
+				key: '3-4',
+				icon: (
+					<>
+						<Link to={'/allocate'}>{i18n.t('nav.allocate')}</Link>
+					</>
+				),
+			},
 		],
 	},
 	{
-		label: '分红计算',
 		key: '4',
+		label: i18n.t('nav.dividendCalculation'),
+		children: [
+			{
+				key: '4-1',
+				icon: (
+					<>
+						<Link to={'/plate'}>{i18n.t('nav.plate')}</Link>
+					</>
+				),
+			},
+			{
+				key: '4-2',
+				icon: (
+					<>
+						<Link to={'/persons'}>{i18n.t('nav.persons')}</Link>
+					</>
+				),
+			},
+		],
+	},
+];
+
+const locales = [
+	{
+		label: '简体中文',
+		value: 'zhCN',
+		key: 'zhCN',
+	},
+	{
+		label: 'English',
+		value: 'en',
+		key: 'en',
 	},
 ];
 
 const GlobalHeader = () => {
-	const navigate = useNavigate();
+	const { user, language, changeLanguage } = useAuthStore();
 
-	const handleSelect = ({ item }) => {
-		if (item?.route) navigate(item.route);
+	const handleChangeLanguage = (nextLang) => {
+		changeLanguage(nextLang);
 	};
 
 	return (
 		<div className={styles.wrap}>
 			<Header className={styles.header}>
-				<Menu mode="horizontal" onSelect={handleSelect} items={items} />
+				<Menu mode="horizontal" items={items} />
 			</Header>
-			<div className={styles.user}>user</div>
+			<div className={styles.user}>
+				<div className={styles.lang}>
+					<MdLanguage />
+					<div className={styles.dropdown}>
+						{locales.map((item) => {
+							return (
+								<span
+									className={item.value === language ? styles.active : ''}
+									onClick={() => handleChangeLanguage(item.value)}
+									key={item.key}
+								>
+									{item.label}
+								</span>
+							);
+						})}
+					</div>
+				</div>
+				<span className={styles.username}>{user}</span>
+			</div>
 		</div>
 	);
 };

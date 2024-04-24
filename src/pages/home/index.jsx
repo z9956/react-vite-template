@@ -10,7 +10,7 @@ export default function LoginPage() {
 	return (
 		<div className={styles.wrap}>
 			<GlobalHeader />
-			<Content>
+			<Content className={styles.content}>
 				<Outlet />
 			</Content>
 		</div>

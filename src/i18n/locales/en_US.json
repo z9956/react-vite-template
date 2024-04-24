@@ -1,0 +1,24 @@
+{
+  "nav": {
+    "basicData": "Basic data",
+    "buMaintenance": "Bu Maintenance",
+    "confirmRights": "Confirm Rights",
+    "bUProfit": "BU Profit",
+    "transactions": "Transactions",
+    "advance": "Advance",
+    "reduce": "Reduce",
+    "financing": "Financing",
+    "allocate": "Allocate",
+    "dividendCalculation": "Dividend Calculation",
+    "plate": "plate",
+    "persons": "persons"
+  },
+  "table": {
+    "total" : "total",
+    "records" : "records"
+  },
+  "buMaintenance": {
+    "startTime": "startTime",
+    "endTime": "endTime"
+  }
+}

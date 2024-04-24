@@ -26,9 +26,60 @@
   }
 
   .user {
+    height: 100%;
+    display: flex;
+    align-items: center;
     position: absolute;
     top: 0;
     right: 0;
+
+    .lang {
+      position: relative;
+      z-index: 10;
+      cursor: pointer;
+      margin-right: 5px;
+
+      .dropdown {
+        width: 120px;
+        position: absolute;
+        bottom: 0;
+        right: 5px;
+        z-index: 10;
+        transform: translateY(80%);
+        padding: 8px 10px 8px 10px;
+        background: #fff;
+        box-shadow: 0 2px 4px 0 rgba(234,50,236,0.5);
+        display: none;
+
+        > span {
+          display: block;
+          padding-left: 3px;
+
+          &:hover {
+            background: #f2f4f5;
+          }
+        }
+
+        .active {
+          background: rgba(234,50,236,0.5);
+
+          &:hover {
+          background: rgba(234,50,236,0.5);
+        }
+        }
+      }
+    }
+
+    .lang:hover {
+      .dropdown {
+        display: block;
+      }
+    }
+
+    .username {
+      font-size: 15px;
+    }
+
   }
 }
 

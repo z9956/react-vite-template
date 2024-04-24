@@ -1,5 +1,6 @@
+import { lazy, Suspense } from 'react';
+import { Spin } from 'antd';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import { lazy } from 'react';
 
 import { AuthProvider, useAuth } from './AuthProvider.jsx';
 import LoginPage from '../pages/login/index.jsx';
@@ -7,16 +8,18 @@ import HomePage from '../pages/home/index.jsx';
 import NoMatch from '../pages/404.jsx';
 
 const BuMaintenancePage = lazy(() => import('../pages/buMaintenance'));
+const ConfirmRightsPage = lazy(() => import('../pages/confirmRights'));
+const BuProfitPage = lazy(() => import('../pages/buProfit'));
 
 function RequireAuth({ children }) {
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated = false } = useAuth();
 	const location = useLocation();
 
 	if (!isAuthenticated) {
 		return <Navigate to="/login" state={{ from: location }} replace />;
 	}
 
-	return children;
+	return <Suspense fallback={<Spin />}>{children}</Suspense>;
 }
 
 export default function App() {
@@ -27,6 +30,14 @@ export default function App() {
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="/basicData">
 						<Route
+							index
+							element={
+								<RequireAuth>
+									<BuMaintenancePage />
+								</RequireAuth>
+							}
+						/>
+						<Route
 							path="/basicData/buMaintenance"
 							element={
 								<RequireAuth>
@@ -34,7 +45,24 @@ export default function App() {
 								</RequireAuth>
 							}
 						/>
+						<Route
+							path="/basicData/confirmRights"
+							element={
+								<RequireAuth>
+									<ConfirmRightsPage />
+								</RequireAuth>
+							}
+						/>
 					</Route>
+
+					<Route
+						path="/buProfit"
+						element={
+							<RequireAuth>
+								<BuProfitPage />
+							</RequireAuth>
+						}
+					/>
 					<Route path="*" element={<NoMatch />} />
 					<Route
 						path="/"
