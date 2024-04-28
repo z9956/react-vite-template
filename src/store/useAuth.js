@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { changeLanguage } from 'i18next';
-// import i18n from '../i18n/index.js';
 
 import { login } from '../api/login.js';
 
@@ -22,12 +21,12 @@ export const useAuthStore = create(
 			},
 			signIn: async (params, cb) => {
 				try {
-					// const res = await login(params);
-					// let res = { data: { user: 'test', access_token: '111' } };
+					const res = await login(params);
 
-					if (params) {
+					if (res) {
+						//TODO
 						localStorage.setItem('USER_INFO', JSON.stringify(res.data));
-						localStorage.setItem('ACCESS_TOKEN', res.data.access_token);
+						localStorage.setItem('ACCESS_TOKEN', res.data.accessToken);
 						set({ user: params.username, isAuthenticated: true });
 						// useNavigate('/');
 						cb && cb();
