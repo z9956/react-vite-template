@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { changeLanguage } from 'i18next';
 
-import { login } from '../api/login.js';
+// import { login } from '../api/login.js';
 
 export const useAuthStore = create(
 	persist(
@@ -21,13 +21,19 @@ export const useAuthStore = create(
 			},
 			signIn: async (params, cb) => {
 				try {
-					const res = await login(params);
+					// const res = await login(params);
+					const res = {
+						data: {
+							accessToken: 'test',
+							username: '123',
+						},
+					};
 
 					if (res) {
 						//TODO
-						localStorage.setItem('USER_INFO', JSON.stringify(res.data));
+						// localStorage.setItem('USER_INFO', JSON.stringify(res.data));
 						localStorage.setItem('ACCESS_TOKEN', res.data.accessToken);
-						set({ user: params.username, isAuthenticated: true });
+						set({ user: res.data.username, isAuthenticated: true });
 						// useNavigate('/');
 						cb && cb();
 					}

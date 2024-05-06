@@ -7,7 +7,7 @@ export default defineConfig({
 	server: {
 		proxy: {
 			'/adminapi': {
-				target: 'http://cbs.tolead.com:28083', // 后端接口
+				target: 'http://xxx.xxx.com', // 后端接口
 				changeOrigin: true,
 				// rewrite: (path) => path.replace(/^\/api/, ''),
 			},

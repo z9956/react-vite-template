@@ -11,7 +11,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "antd": "4.24.15",
+    "antd": "^5.17.0",
     "axios": "^1.6.8",
     "dayjs": "^1.11.10",
     "i18next": "^23.11.2",

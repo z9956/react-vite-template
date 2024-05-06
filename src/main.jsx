@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter } from 'react-router-dom';
 
-import 'antd/dist/antd.css';
-
 import App from './router';
 import './i18n/index.js';
 import './index.css';

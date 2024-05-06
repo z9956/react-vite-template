@@ -7,9 +7,7 @@ import LoginPage from '../pages/login/index.jsx';
 import HomePage from '../pages/home/index.jsx';
 import NoMatch from '../pages/404.jsx';
 
-const BuMaintenancePage = lazy(() => import('../pages/buMaintenance'));
-const ConfirmRightsPage = lazy(() => import('../pages/confirmRights'));
-const BuProfitPage = lazy(() => import('../pages/buProfit'));
+const PermissionsPage = lazy(() => import('../pages/permissions'));
 
 function RequireAuth({ children }) {
 	const { isAuthenticated = false } = useAuth();
@@ -28,47 +26,30 @@ export default function App() {
 			<Routes>
 				<Route element={<HomePage />}>
 					<Route path="/login" element={<LoginPage />} />
-					<Route path="/basicData">
+					<Route path="/permissions">
 						<Route
 							index
 							element={
 								<RequireAuth>
-									<BuMaintenancePage />
+									<PermissionsPage />
 								</RequireAuth>
 							}
 						/>
 						<Route
-							path="/basicData/buMaintenance"
+							path="/permissions/test"
 							element={
 								<RequireAuth>
-									<BuMaintenancePage />
-								</RequireAuth>
-							}
-						/>
-						<Route
-							path="/basicData/confirmRights"
-							element={
-								<RequireAuth>
-									<ConfirmRightsPage />
+									<PermissionsPage />
 								</RequireAuth>
 							}
 						/>
 					</Route>
-
-					<Route
-						path="/buProfit"
-						element={
-							<RequireAuth>
-								<BuProfitPage />
-							</RequireAuth>
-						}
-					/>
 					<Route path="*" element={<NoMatch />} />
 					<Route
 						path="/"
 						element={
 							<RequireAuth>
-								<BuMaintenancePage />
+								<PermissionsPage />
 							</RequireAuth>
 						}
 					/>

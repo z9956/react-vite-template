@@ -5,11 +5,11 @@ import config from '../config';
 
 const axiosInstance = axios.create({
 	baseURL: config.baseUrl,
-	timeout: 150000,
+	timeout: 20000,
 });
 
 const warn = (description) => {
-	return notification.warn({
+	return notification.warning({
 		title: '警告',
 		description,
 	});
@@ -98,10 +98,14 @@ axiosInstance.interceptors.response.use(
 			return { success: false, code: 400, msg: '接口报错', data: [] };
 		}
 		if (error.response.status === 401) {
-			//todo token
 			localStorage.clear();
 			sessionStorage.clear();
-			window.location.href = '/login';
+
+			warn('TOKEN过期 请重新登录');
+
+			setTimeout(() => {
+				window.location.href = '/login';
+			}, 300);
 
 			return {
 				success: false,
