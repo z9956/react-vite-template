@@ -17,7 +17,11 @@ function RequireAuth({ children }) {
 		return <Navigate to="/login" state={{ from: location }} replace />;
 	}
 
-	return <Suspense fallback={<Spin />}>{children}</Suspense>;
+	return (
+		<Suspense fallback={<Spin className="errorBoundary" />}>
+			{children}
+		</Suspense>
+	);
 }
 
 export default function App() {
