@@ -1,12 +1,10 @@
 import { Form, Button, Checkbox, Input } from 'antd';
-import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../router/AuthProvider.jsx';
 import styles from './style.module.less';
 
 export default function LoginPage() {
 	const { signIn } = useAuth();
-	const navigate = useNavigate();
 	const [form] = Form.useForm();
 
 	const onFinish = (values) => {
@@ -20,9 +18,7 @@ export default function LoginPage() {
 		event.preventDefault();
 
 		form.validateFields().then((values) => {
-			signIn(values, () => {
-				navigate('/', { replace: true });
-			});
+			signIn(values);
 		});
 	};
 
@@ -42,6 +38,7 @@ export default function LoginPage() {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
+				form={form}
 			>
 				<Form.Item
 					label="Username"

@@ -6,11 +6,11 @@ export default defineConfig({
 	plugins: [react()],
 	server: {
 		proxy: {
-			'/adminapi': {
-				target: 'http://xxx.xxx.com', // 后端接口
-				changeOrigin: true,
-				// rewrite: (path) => path.replace(/^\/api/, ''),
-			},
+			// '/adminapi': {
+			// 	target: 'http://xxx.xxx.com', // 后端接口
+			// 	changeOrigin: true,
+			// 	// rewrite: (path) => path.replace(/^\/api/, ''),
+			// },
 		},
 	},
 	// resolve: {

@@ -1,12 +1,12 @@
 {
-  "cancel": "取消",
-  "save": "保存",
-  "modal": {
-    "add": "新增",
-    "edit": "编辑"
-  },
-  "table": {
-    "total" : "共",
-    "records" : "条记录"
-  }
+	"cancel": "取消",
+	"save": "保存",
+	"modal": {
+		"add": "新增",
+		"edit": "编辑"
+	},
+	"table": {
+		"total": "共",
+		"records": "条记录"
+	}
 }

@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
-import { Spin } from 'antd';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Spin } from 'antd';
 
 import { AuthProvider, useAuth } from './AuthProvider.jsx';
 import LoginPage from '../pages/login/index.jsx';
@@ -9,7 +10,7 @@ import NoMatch from '../pages/404.jsx';
 
 const PermissionsPage = lazy(() => import('../pages/permissions'));
 
-function RequireAuth({ children }) {
+function ProtectedRoute({ children }) {
 	const { isAuthenticated = false } = useAuth();
 	const location = useLocation();
 
@@ -24,39 +25,72 @@ function RequireAuth({ children }) {
 	);
 }
 
+ProtectedRoute.propTypes = {
+	children: PropTypes.node.isRequired,
+};
+
+function GuestRoute({ children }) {
+	const { isAuthenticated = false } = useAuth();
+	const location = useLocation();
+
+	if (isAuthenticated) {
+		return <Navigate to="/" state={{ from: location }} replace />;
+	}
+
+	return (
+		<Suspense fallback={<Spin className="errorBoundary" />}>
+			{children}
+		</Suspense>
+	);
+}
+
+GuestRoute.propTypes = {
+	children: PropTypes.node.isRequired,
+};
+
 export default function App() {
 	return (
 		<AuthProvider>
 			<Routes>
 				<Route element={<HomePage />}>
-					<Route path="/login" element={<LoginPage />} />
+					<Route
+						path="/login"
+						element={
+							<GuestRoute>
+								<LoginPage />
+							</GuestRoute>
+						}
+					/>
+
 					<Route path="/permissions">
 						<Route
 							index
 							element={
-								<RequireAuth>
+								<ProtectedRoute>
 									<PermissionsPage />
-								</RequireAuth>
+								</ProtectedRoute>
 							}
 						/>
 						<Route
 							path="/permissions/test"
 							element={
-								<RequireAuth>
+								<ProtectedRoute>
 									<PermissionsPage />
-								</RequireAuth>
+								</ProtectedRoute>
 							}
 						/>
 					</Route>
-					<Route path="*" element={<NoMatch />} />
+
 					<Route
 						path="/"
 						element={
-							<RequireAuth>
+							<ProtectedRoute>
 								<PermissionsPage />
-							</RequireAuth>
+							</ProtectedRoute>
 						}
 					/>
+
+					<Route path="*" element={<NoMatch />} />
 				</Route>
 			</Routes>
 		</AuthProvider>

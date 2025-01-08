@@ -1,12 +1,12 @@
 {
-  "cancel": "Cancel",
-  "save": "Save",
-  "modal": {
-    "add": "Add",
-    "edit": "Edit"
-  },
-  "table": {
-    "total" : "total",
-    "records" : "records"
-  }
+	"cancel": "Cancel",
+	"save": "Save",
+	"modal": {
+		"add": "Add",
+		"edit": "Edit"
+	},
+	"table": {
+		"total": "total",
+		"records": "records"
+	}
 }
