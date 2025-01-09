@@ -1,1 +1,1 @@
-# React + Vite + Antd + i18n + 路由权限
+# React + Vite + Antd + i18n + zustand + 路由权限
