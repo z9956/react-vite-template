@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
+    "lint": "bun lint:fix && bun lint:prettier",
+    "lint:prettier": "prettier --write",
+    "lint:fix": "eslint --fix",
     "lint-staged": "lint-staged",
     "preview": "vite preview",
     "prepare": "husky"
