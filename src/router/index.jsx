@@ -3,7 +3,8 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Spin } from 'antd';
 
-import { AuthProvider, useAuth } from './AuthProvider.jsx';
+import { useAuth } from '../context/AuthContext.js';
+import AuthProvider from './AuthProvider.jsx';
 import LoginPage from '../pages/login/index.jsx';
 import HomePage from '../pages/home/index.jsx';
 import NoMatch from '../pages/404.jsx';

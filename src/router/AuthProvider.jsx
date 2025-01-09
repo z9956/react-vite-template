@@ -1,9 +1,9 @@
-import * as React from 'react';
-import useAuthStore from '../store/useAuth.js';
+import PropTypes from 'prop-types';
 
-export const AuthProviderContext = React.createContext();
+import useAuthStore from '../store/useAuthStore.js';
+import { AuthProviderContext } from '../context/AuthContext.js';
 
-export function AuthProvider({ children }) {
+export default function AuthProvider({ children }) {
 	return (
 		<AuthProviderContext.Provider value={useAuthStore()}>
 			{children}
@@ -11,6 +11,6 @@ export function AuthProvider({ children }) {
 	);
 }
 
-export function useAuth() {
-	return React.useContext(AuthProviderContext);
-}
+AuthProvider.propTypes = {
+	children: PropTypes.node.isRequired,
+};

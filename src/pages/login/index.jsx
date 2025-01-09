@@ -1,6 +1,6 @@
 import { Form, Button, Checkbox, Input } from 'antd';
 
-import { useAuth } from '../../router/AuthProvider.jsx';
+import { useAuth } from '../../context/AuthContext.js';
 import styles from './style.module.less';
 
 export default function LoginPage() {
