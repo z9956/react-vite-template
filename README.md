@@ -79,5 +79,5 @@ bun i
 bun dev
 
 // 打包
-bun build
+bun run build
 ```
