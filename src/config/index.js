@@ -1,5 +1,5 @@
 export default {
-	baseUrl: 'http://http://localhost:9000',
+	baseUrl: import.meta.env.VITE_BASE_URL ?? '',
 	filePreview: '',
 	fileUpload: '',
 };

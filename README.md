@@ -1,4 +1,4 @@
-## React-vite-template
+## React Vite Template
 
 ### 基本功能
 
@@ -8,15 +8,15 @@
 
 ### 技术栈
 
-- react
-- vite
-- Antd
-- zustand
-- husky
-- eslint
-- prettier
-- less
-- i18n
+- React
+- Vite
+- Ant Design
+- Zustand
+- Husky
+- ESLint
+- Prettier
+- Less
+- i18next
 
 ### 项目结构
 
